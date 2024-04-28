@@ -43,10 +43,11 @@ export default function EditProfile({}: Props) {
             initial={{ y: "var(--y-from)", opacity: "var(--opacity-from)" }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, type: "spring", bounce: 0 }}
-            className="flex h-full w-full items-center justify-center bg-[#f7f7f7] px-4 max-md:[--y-from:100%] md:h-auto md:max-w-lg md:bg-transparent md:bg-white md:px-0 md:[--opacity-from:0]"
+            className="flex h-full w-full items-center justify-center bg-[#f7f7f7] px-4 dark:bg-background max-md:[--y-from:100%] md:h-auto md:max-w-lg md:bg-transparent md:px-0 md:[--opacity-from:0]"
           >
             <PageNavControl
               title="Edit Profile"
+              className="border-box-border dark:border-b"
               leftElement={
                 <button
                   onClick={onClose}
@@ -58,7 +59,7 @@ export default function EditProfile({}: Props) {
               rightElement={<DoneButton />}
             />
 
-            <div className="w-full space-y-4 rounded-2xl border-[1px] border-box-border bg-white p-6">
+            <div className="bg-red w-full space-y-4 rounded-2xl border-[1px] border-box-border bg-white p-6 dark:bg-black dark:text-[#f3f5f7]">
               <div className="flex items-center gap-4">
                 <button
                   className="grow border-b border-box-border text-start text-[15px]"
@@ -178,50 +179,50 @@ function DoneButtonDesktop({}) {
   const onDoneHandler = async () => {
     setIsLoading(true);
 
-    if (!isLoaded) {
+    if (!isLoaded || !user) {
       return null;
     }
 
+    console.log(user);
+
     try {
-      if (user) {
-        if (editProfileData.file) {
-          const data = await user.setProfileImage({
-            file: editProfileData.file.file,
-          });
+      if (editProfileData.file) {
+        const data = await user.setProfileImage({
+          file: editProfileData.file.file,
+        });
 
-          await supabase
-            .from("users")
-            .update({ imageUrl: data?.publicUrl })
-            .eq("user_id", user.id);
-        }
-
-        const { data, error } = await supabase
+        await supabase
           .from("users")
-          .select("*")
-          .eq("username", params["my-profile"].replace("%40", ""))
-          .single();
-
-        if (JSON.stringify(data) !== JSON.stringify(editProfileData.user)) {
-          const { data, error } = await supabase
-            .from("users")
-            .update({
-              bio: editProfileData.user?.bio,
-              name: editProfileData.user?.name,
-              link: editProfileData.user?.link,
-            })
-            .eq("user_id", user.id);
-
-          if (error) {
-            console.log(error);
-          } else {
-            onClose();
-          }
-        }
-
-        console.log("No file");
+          .update({ imageUrl: data?.publicUrl })
+          .eq("user_id", user.id);
       }
 
-      console.log("no user");
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("username", params["my-profile"].replace("%40", ""))
+        .single();
+
+      if (JSON.stringify(data) !== JSON.stringify(editProfileData.user)) {
+        const { data, error } = await supabase
+          .from("users")
+          .update({
+            bio: editProfileData.user?.bio,
+            name: editProfileData.user?.name,
+            link: editProfileData.user?.link,
+          })
+          .eq("user_id", user.id);
+
+        if (error) {
+          console.log(error);
+        } else {
+          onClose();
+        }
+      } else {
+        onClose();
+      }
+
+      console.log("No file");
     } catch (e) {
       console.log(e);
     } finally {
@@ -284,10 +285,10 @@ function UploadImage() {
       <DropdownList
         isOpen={showDropdown}
         onCloseHandler={() => setShowDropdown(false)}
-        className="right-0 w-56 border border-box-border bg-[rgb(245,245,245)]"
+        className="right-0 w-56 border border-box-border bg-[rgb(245,245,245)] dark:bg-[rgba(30,30,30)]"
         originX="right"
       >
-        <label className="inline-block cursor-pointer p-4">
+        <label className="inline-block cursor-pointer p-4 py-3">
           <div className="text-[15px] font-medium">Upload picture</div>
           <input
             type="file"

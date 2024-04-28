@@ -24,8 +24,12 @@ export default function UserInformation({ data, username }: Props) {
   const { user } = useUser();
 
   useEffect(() => {
+    console.log("editing user");
+
     setEditingUser(userData);
   }, [userData]);
+
+  console.log("userinformation");
 
   useEffect(() => {
     console.log("updated now");
@@ -36,17 +40,16 @@ export default function UserInformation({ data, username }: Props) {
         { event: "UPDATE", schema: "public", table: "users" },
         (payload: any) => {
           setUserData(payload.new);
+          console.log("new payload");
+          action();
         }
       )
       .subscribe();
 
-    // revalidatePath("/", "layout");
-    action();
-
     return () => {
       supabase.removeChannel(users);
     };
-  }, [userData]);
+  }, []);
 
   if (!userData) {
     return null;
@@ -96,11 +99,7 @@ function EditButton() {
   const { onOpen } = useEditProfileModal();
 
   return (
-    <Button
-      variant={"secondary"}
-      className="mb-3 mt-4 h-8 rounded-lg border border-input-border text-[15px] duration-200 active:scale-[0.97]"
-      onClick={onOpen}
-    >
+    <Button variant={"secondary"} className="h-8" onClick={onOpen}>
       Edit Profile
     </Button>
   );

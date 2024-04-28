@@ -37,6 +37,7 @@ export default function Bio({ onClose }: Props) {
     >
       <PageNavControl
         title="Edit bio"
+        className="dark:bg-transparent"
         leftElement={
           <button
             onClick={onClose}

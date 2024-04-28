@@ -29,6 +29,8 @@ export default async function MyProfile({ params }: Props) {
       return <div className="mx-auto mt-20 max-w-xl">Something went wrong</div>;
     }
 
+    console.log("profile");
+
     return (
       <div className="mt-20">
         <UserInformation

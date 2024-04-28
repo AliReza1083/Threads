@@ -48,7 +48,7 @@ export default function Panel({
           animate={{ y: 0 }}
           transition={{ duration: 0.5, type: "spring", bounce: 0 }}
           className={cn(
-            "flex h-full w-full items-start justify-start bg-white px-4 pt-16 max-md:[--y-from:100%] md:h-auto md:min-h-20 md:max-w-[619px] md:rounded-2xl md:bg-transparent md:bg-white md:p-6 md:[--scale-from:.9]",
+            "flex h-full w-full items-start justify-start bg-white px-4 pt-16 dark:bg-[rgb(24,24,24)] max-md:[--y-from:100%] md:h-auto md:min-h-20 md:max-w-[619px] md:rounded-2xl md:bg-transparent md:bg-white md:p-6 md:[--scale-from:.9]",
             className
           )}
         >

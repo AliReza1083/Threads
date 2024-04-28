@@ -26,6 +26,7 @@ export default function Name({ onClose }: Props) {
     >
       <PageNavControl
         title="Edit name"
+        className="dark:bg-transparent"
         leftElement={
           <button
             onClick={onClose}

@@ -33,6 +33,7 @@ export default function Link({ onClose }: Props) {
     >
       <PageNavControl
         title="Edit link"
+        className="dark:bg-transparent"
         leftElement={
           <button
             onClick={onClose}

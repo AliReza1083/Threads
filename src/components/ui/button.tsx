@@ -9,7 +9,8 @@ export const buttonVariant = cva(
       variant: {
         default:
           "button-shrink text-[15px] text-white border-none dark:text-black bg-black dark:bg-white rounded-[16px] border font-medium border-transparent focus:border-input-border/20 disabled:opacity-50 duration-100",
-        secondary: "border-2",
+        secondary:
+          "mb-3 mt-4 rounded-lg border border-box-border text-[15px] duration-200 active:scale-[0.97]",
       },
     },
     defaultVariants: {
